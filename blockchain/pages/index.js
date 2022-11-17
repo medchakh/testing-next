@@ -1,17 +1,19 @@
 
 import { ConnectWallet, useAddress, useContract,  useListings,  useMetamask } from "@thirdweb-dev/react";
 import { useEffect, useState } from "react";
+import { useRouter } from 'next/router'
 import { marketplace, nftCollection } from "../components/variables";
 import styles from '../styles/Home.module.css'
 
  export default function Home() {
-//   const userAdress = useAddress()
+  const router = useRouter()
+  const userAddress = useAddress()
 //   const getMarketplace = useContract(marketplace)
 //   const {contract, isLoading} = getMarketplace
 //   const [activeListings, setActiveListing] = useState(null)
 
 useEffect(() => {
-  if(userAddress) 
+  if(userAddress) return;
 }, [userAddress])
   return (
     <div className={styles.container}>
