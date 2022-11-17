@@ -1,24 +1,30 @@
 
-import { ConnectWallet, useAddress, useContract,  useListings,  useMetamask } from "@thirdweb-dev/react";
-import { useEffect, useState } from "react";
-import { useRouter } from 'next/router'
-import { marketplace, nftCollection } from "../components/variables";
+import { useContract } from '@thirdweb-dev/react'
+import { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
 
- export default function Home() {
-  const router = useRouter()
-  const userAddress = useAddress()
-//   const getMarketplace = useContract(marketplace)
-//   const {contract, isLoading} = getMarketplace
-//   const [activeListings, setActiveListing] = useState(null)
-
-useEffect(() => {
-  if(userAddress) return;
-}, [userAddress])
+function Home() {
+  const { contract, isLoading } = useContract("0xEde2c80b714A41c513431599D787Acb230Ab215C", "marketplace")
+ const [listings, setListings] = useState() 
+ useEffect(()=> {
+  async function getListings(){
+    try{
+      if(!isLoading){
+        const getlistings = await contract?.getAllListings()
+        setListings(getlistings)
+      }
+    }catch(err){
+      return alert('didnt work')
+    }
+  }
+  getListings()
+ })
   return (
     <div className={styles.container}>
-     <p>to continue log in first with your wallet</p>
-      <ConnectWallet/>
-    </div>
+      {JSON.stringify(listings)}
+      </div>
   )
 }
+
+export default Home
+
