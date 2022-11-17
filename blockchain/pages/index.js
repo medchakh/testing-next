@@ -9,7 +9,10 @@ console.log(adress)
   return (
     <div className={styles.container}>
       <p>hello</p>
-<button onClick={connectMeta}>connect metamasc</button>
+      {/* we can use either a specific function to open a wallet or use the connectWallet component */}
+    <button onClick={connectMeta}>connect metamasc</button>
+    <ConnectWallet />
+
     </div>
   )
 }
